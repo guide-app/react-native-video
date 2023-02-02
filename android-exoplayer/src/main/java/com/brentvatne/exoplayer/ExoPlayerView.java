@@ -17,6 +17,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.text.CaptionStyleCompat;
 import com.google.android.exoplayer2.video.VideoListener;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
@@ -74,8 +75,21 @@ public final class ExoPlayerView extends FrameLayout {
         shutterView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.black));
 
         subtitleLayout = new SubtitleView(context);
-        subtitleLayout.setLayoutParams(layoutParams);
-        subtitleLayout.setUserDefaultStyle();
+        FrameLayout.LayoutParams subtitleLayoutParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT);
+        subtitleLayout.setPadding(0, 0, 0, 50);
+        subtitleLayout.setLayoutParams(subtitleLayoutParams);
+
+        CaptionStyleCompat captionStyle = new CaptionStyleCompat(
+                Color.WHITE,
+                Color.argb(128, 0, 0, 0),
+                Color.TRANSPARENT,
+                CaptionStyleCompat.EDGE_TYPE_NONE,
+                Color.WHITE,
+                /* typeface= */ null);
+        subtitleLayout.setStyle(captionStyle);
+        // subtitleLayout.setUserDefaultStyle();
         subtitleLayout.setUserDefaultTextSize();
 
         updateSurfaceView();
