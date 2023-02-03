@@ -1407,7 +1407,7 @@ class ReactExoplayerView extends FrameLayout implements
     /**
      * Handling padding bottom track prop
      *
-     * @param fontSizeTrack  paddingBottomTrack prop, float to define the padding bottom of the text track
+     * @param fontSizeTrack  paddingBottomTrack prop, integer to define the padding bottom of the text track
      */
     public void setPaddingBottomTrack(int paddingBottomTrack) {
         exoPlayerView.setPaddingBottomTrack(paddingBottomTrack);
