@@ -78,11 +78,7 @@ public final class ExoPlayerView extends FrameLayout {
         shutterView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.black));
 
         subtitleLayout = new SubtitleView(context);
-        FrameLayout.LayoutParams subtitleLayoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT);
-        subtitleLayout.setPadding(0, 0, 0, 50);
-        subtitleLayout.setLayoutParams(subtitleLayoutParams);
+        subtitleLayout.setLayoutParams(layoutParams);
 
         CaptionStyleCompat captionStyle = new CaptionStyleCompat(
                 Color.WHITE,
@@ -92,7 +88,6 @@ public final class ExoPlayerView extends FrameLayout {
                 Color.WHITE,
                 /* typeface= */ null);
         subtitleLayout.setStyle(captionStyle);
-        // subtitleLayout.setUserDefaultStyle();
         subtitleLayout.setUserDefaultTextSize();
 
         updateSurfaceView();
@@ -107,8 +102,8 @@ public final class ExoPlayerView extends FrameLayout {
         subtitleLayout.setFixedTextSize(TypedValue.COMPLEX_UNIT_SP, fontSizeTrack);
     }
 
-    public void setPaddingBottomTrack(float paddingBottomTrack) {
-        subtitleLayout.setBottomPaddingFraction(paddingBottomTrack);
+    public void setPaddingBottomTrack(int paddingBottomTrack) {
+        subtitleLayout.setPadding(0, 0, 0, paddingBottomTrack);
     }
 
     private void clearVideoView() {
