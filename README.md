@@ -1,5 +1,15 @@
 ## react-native-video
 
+This is a fork of react-native-video. This fork is able to control the subtitle font size on Android devices. It was WAAYYYY TOOOO BIGGG. We also added the ability to add bottom padding to subtitles on Android.
+
+We took inspiration from this other fork:
+https://github.com/IbsenFahir/react-native-video/pull/1/files#diff-58d685a0d1adf4435caaa08799792f6d3e72e5e485bc7d7fca2b7869ba2ce392
+
+Enjoy!
+
+
+
+
 A `<Video>` component for react-native, as seen in
 [react-native-login](https://github.com/brentvatne/react-native-login)!
 
@@ -296,6 +306,7 @@ var styles = StyleSheet.create({
 * [disableFocus](#disableFocus)
 * [filter](#filter)
 * [filterEnabled](#filterEnabled)
+* [fontSizeTrack](#fontSizeTrack)
 * [fullscreen](#fullscreen)
 * [fullscreenAutorotate](#fullscreenautorotate)
 * [fullscreenOrientation](#fullscreenorientation)
@@ -307,6 +318,7 @@ var styles = StyleSheet.create({
 * [minLoadRetryCount](#minLoadRetryCount)
 * [mixWithOthers](#mixWithOthers)
 * [muted](#muted)
+* [paddingBottomTrack](#paddingBottomTrack)
 * [paused](#paused)
 * [pictureInPicture](#pictureinpicture)
 * [playInBackground](#playinbackground)
@@ -471,6 +483,13 @@ Enable video filter.
 
 Platforms: iOS
 
+#### fontSizeTrack
+Adjust the font size of the subtitles in Android.
+* **null (default)** - The default font size of the device
+* **Other values (int)** - Change the font size using "sp" unit
+
+Platforms: Android ExoPlayer
+ 
 #### fullscreen
 Controls whether the player enters fullscreen on play.
 * **false (default)** - Don't display the video in fullscreen
@@ -572,6 +591,13 @@ Controls whether the audio is muted
 
 Platforms: all
 
+#### paddingBottomTrack
+Adjust the padding bottom of the subtitles in Android.
+* **null (default)** - Default padding bottom (0)
+* **Other values (int)** - Change the padding bottom in "dp" unit
+
+Platforms: Android ExoPlayer
+ 
 #### paused
 Controls whether the media is paused
 * **false (default)** - Don't pause the media
