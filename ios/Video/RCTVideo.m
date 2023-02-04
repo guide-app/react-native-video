@@ -382,37 +382,32 @@ static int const RCTVideoUnset = -1;
         self->_isExternalPlaybackActiveObserverRegistered = NO;
       }
       
-	self->_player = [[AVPlayer alloc] init];
-    
-        __strong typeof(self) weakSelf = self;
-        dispatch_async(dispatch_get_main_queue(), ^{
-          [weakSelf->_player replaceCurrentItemWithPlayerItem:self->_playerItem];
-            self->_player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-            [self->_player addObserver:self forKeyPath:playbackRate options:0 context:nil];
-            self->_playbackRateObserverRegistered = YES;
-            
-            [self->_player addObserver:self forKeyPath:externalPlaybackActive options:0 context:nil];
-            self->_isExternalPlaybackActiveObserverRegistered = YES;
-            
-            [self addPlayerTimeObserver];
-            
-            if (@available(iOS 10.0, *)) {
-              [self setAutomaticallyWaitsToMinimizeStalling:_automaticallyWaitsToMinimizeStalling];
-            }
+      self->_player = [AVPlayer playerWithPlayerItem:self->_playerItem];
+      self->_player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+      
+      [self->_player addObserver:self forKeyPath:playbackRate options:0 context:nil];
+      self->_playbackRateObserverRegistered = YES;
+      
+      [self->_player addObserver:self forKeyPath:externalPlaybackActive options:0 context:nil];
+      self->_isExternalPlaybackActiveObserverRegistered = YES;
+      
+      [self addPlayerTimeObserver];
+      if (@available(iOS 10.0, *)) {
+        [self setAutomaticallyWaitsToMinimizeStalling:_automaticallyWaitsToMinimizeStalling];
+      }
 
-            //Perform on next run loop, otherwise onVideoLoadStart is nil
-            if (self.onVideoLoadStart) {
-              id uri = [self->_source objectForKey:@"uri"];
-              id type = [self->_source objectForKey:@"type"];
-              self.onVideoLoadStart(@{@"src": @{
-                                          @"uri": uri ? uri : [NSNull null],
-                                          @"type": type ? type : [NSNull null],
-                                          @"isNetwork": [NSNumber numberWithBool:(bool)[self->_source objectForKey:@"isNetwork"]]},
-                                      @"drm": self->_drm ? self->_drm : [NSNull null],
-                                      @"target": self.reactTag
-                                      });
-            }
-      });
+      //Perform on next run loop, otherwise onVideoLoadStart is nil
+      if (self.onVideoLoadStart) {
+        id uri = [self->_source objectForKey:@"uri"];
+        id type = [self->_source objectForKey:@"type"];
+        self.onVideoLoadStart(@{@"src": @{
+                                    @"uri": uri ? uri : [NSNull null],
+                                    @"type": type ? type : [NSNull null],
+                                    @"isNetwork": [NSNumber numberWithBool:(bool)[self->_source objectForKey:@"isNetwork"]]},
+                                @"drm": self->_drm ? self->_drm : [NSNull null],
+                                @"target": self.reactTag
+                                });
+      }
     }];
   });
   _videoLoadStarted = YES;
